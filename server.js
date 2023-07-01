@@ -35,7 +35,7 @@ const store = new MongoDBSession({
 app.use(
     cors(
         {
-            origin: 'http://localhost:3000',  // Replace with the actual origin of your frontend server
+            origin: 'https://twitter-front-cyan.vercel.app',  // Replace with the actual origin of your frontend server
             credentials: true, // Enable sending cookies across domains
         }
     )
