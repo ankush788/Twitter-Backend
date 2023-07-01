@@ -26,7 +26,8 @@ try {
 
 const store = new MongoDBSession({
     uri: `mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.f9qdln2.mongodb.net/TwitterLoginDB?retryWrites=true&w=majority`,
-    collection: "sessions"
+    collection: "sessions",
+     store: store
 })
 
 
