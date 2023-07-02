@@ -19,18 +19,18 @@ router.post("/UserFollower", async (req, res) => {
             Following.Following.push(UserId);
             await Following.save();
             await Follower.save();
-            setTimeout(() => {
+       
                 res.json({ sucess: false, total: Follower.Follow.length, message: "start following " });
-            }, 2000);
+            
         }
         else {
             Follower.Follow.splice(followIndex, 1);
             Following.Following.splice(followingIndex, 1);
             await Following.save();
             await Follower.save();
-             setTimeout(() => {
+         
                 res.json({ sucess: true, total: Follower.Follow.length, message: "unfollow" });
-            }, 2000);
+          
         }
 
     }
@@ -48,14 +48,14 @@ router.post("/IntialUserFollower", async (req, res) => {
         const followIndex = Follower.Follow.indexOf(publicId);
 
         if (followIndex == -1) {
-                  setTimeout(() => {
+                
             res.json({ sucess: false, total: Follower.Follow.length, message: "start following " });
-                        }, 2000);
+                       
         }
         else {
-               setTimeout(() => {
+               
             res.json({ sucess: true, total: Follower.Follow.length, message: "unfollow" });
-                     }, 2000);
+                   
         }
 
     }
@@ -81,9 +81,9 @@ router.post("/FollowAndFollowing", async (req, res) => {
             const person = await  User.findById(Following);
             following.push(person);
         }
-         setTimeout(() => {
+        
         res.json({ follower: follower, following: following });
-              }, 2000);
+             
 
     } catch (err) {
         console.log(err);
