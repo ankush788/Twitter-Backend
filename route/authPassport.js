@@ -8,7 +8,7 @@ passport.use(
         {
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "/auth/google/home",
+            callbackURL: "/auth/google",
         },
         function (accessToken, refreshToken, profile, cb) {
           
