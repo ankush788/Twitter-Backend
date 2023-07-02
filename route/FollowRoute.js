@@ -71,7 +71,7 @@ router.post("/FollowAndFollowing", async (req, res) => {
     let following = [];
     try {
         const user = await User.findById(UserId);  //find the user
-            if(user.Follow.length !== 0)
+            if(user.Follow)
             {
         for (const Follower of user.Follow) {
             const person = await User.findById(Follower);
@@ -79,7 +79,7 @@ router.post("/FollowAndFollowing", async (req, res) => {
         }
             }
         
-        if(user.Following.length !== 0)
+        if(user.Following)
             {
         for (const Following of user.Following) {
             const person = await  User.findById(Following);
