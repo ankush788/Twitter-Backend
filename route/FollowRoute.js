@@ -101,10 +101,10 @@ router.post("/FollowAndFollowing", async (req, res) => {
 
 //---------------follow length--------------------//
 
-router.post("/FollowData", async (res, req) => {
+router.post("/FollowData", async (req ,res) => {
     const { UserId } = req.body;
     try {
-        const user = User.findById(UserId);
+        const user = await  User.findById(UserId);
         res.json({ Follow: user.Follow.length, Following: user.Following.length });
     }
     catch (err) {
