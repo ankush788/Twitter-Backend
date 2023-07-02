@@ -71,17 +71,22 @@ router.post("/FollowAndFollowing", async (req, res) => {
     let following = [];
     try {
         const user = await User.findById(UserId);  //find the user
-      
+            if(user.Follow.length !== 0)
+            {
         for (const Follower of user.Follow) {
             const person = await User.findById(Follower);
             follower.push(person);
         }
-
+            }
+        
+        if(user.Following.length !== 0)
+            {
         for (const Following of user.Following) {
             const person = await  User.findById(Following);
             following.push(person);
         }
-        
+
+                 }
         res.json({ follower: follower, following: following });
              
 
