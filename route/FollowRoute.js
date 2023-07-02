@@ -6,38 +6,39 @@ const Comment = require('../models/TwitterComment')
 const User = require('../models/user')
 
 //--------------------------fetching follower ----------------------------------//
-router.post("/UserFollower", async (req, res) => {
-    try {
-        const { UserId, publicId } = req.body;
-        const Follower = await User.findById(UserId); // get a follower
-        const Following = await User.findById(publicId);  // get a following 
-        const followIndex = Follower.Follow.indexOf(publicId);
-        const followingIndex = Following.Following.indexOf(UserId);
 
-        if (followIndex == -1) {
-            Follower.Follow.push(publicId);
-            Following.Following.push(UserId);
-            await Following.save();
-            await Follower.save();
-       
-                res.json({ sucess: false, total: Follower.Follow.length, message: "start following " });
-            
-        }
-        else {
-            Follower.Follow.splice(followIndex, 1);
-            Following.Following.splice(followingIndex, 1);
-            await Following.save();
-            await Follower.save();
-         
-                res.json({ sucess: true, total: Follower.Follow.length, message: "unfollow" });
-          
-        }
+   router.post("/UserFollower", async (req, res) => {
+  try {
+    const { UserId, publicId } = req.body;
+    const Follower = await User.findById(UserId); // get the follower
+    const Following = await User.findById(publicId);  // get the following 
 
+    if (Follower && Following) {
+      const followIndex = Follower.Follow.indexOf(publicId);
+      const followingIndex = Following.Following.indexOf(UserId);
+
+      if (followIndex === -1) {
+        Follower.Follow.push(publicId);
+        Following.Following.push(UserId);
+        await Following.save();
+        await Follower.save();
+        res.json({ success: false, total: Follower.Follow.length, message: "start following" });
+      } else {
+        Follower.Follow.splice(followIndex, 1);
+        Following.Following.splice(followingIndex, 1);
+        await Following.save();
+        await Follower.save();
+        res.json({ success: true, total: Follower.Follow.length, message: "unfollow" });
+      }
+    } else {
+      // Handle the case where either Follower or Following is null/undefined
+      res.json({ success: false,  message: "Invalid user" });
     }
-    catch (err) {
-        console.log(err);
-    }
+  } catch (err) {
+    console.log(err);
+  }
 });
+
 
 //------------------------------------------Intial Follower---------------------//
 router.post("/IntialUserFollower", async (req, res) => {
