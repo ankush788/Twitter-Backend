@@ -10,10 +10,10 @@ const User = require('../models/user')
    router.post("/UserFollower", async (req, res) => {
   try {
     const { UserId, publicId } = req.body;
-     console.log(req.body);
+    
     const Follower = await User.findById(UserId); // get the follower
     const Following = await User.findById(publicId);  // get the following 
-         console.log(Follower, Following);
+      
     if (Follower && Following) {
       const followIndex = Follower.Follow.indexOf(publicId);
       const followingIndex = Following.Following.indexOf(UserId);
@@ -23,13 +23,13 @@ const User = require('../models/user')
         Following.Following.push(UserId);
         await Following.save();
         await Follower.save();
-        res.json({ success: false, total: Follower.Follow.length, message: "start following" });
+        res.json({ success: true, total: Follower.Follow.length, message: "start following" });
       } else {
         Follower.Follow.splice(followIndex, 1);
         Following.Following.splice(followingIndex, 1);
         await Following.save();
         await Follower.save();
-        res.json({ success: true, total: Follower.Follow.length, message: "unfollow" });
+        res.json({ success: false, total: Follower.Follow.length, message: "unfollow" });
       }
     } else {
       // Handle the case where either Follower or Following is null/undefined
