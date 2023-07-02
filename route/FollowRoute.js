@@ -10,9 +10,10 @@ const User = require('../models/user')
    router.post("/UserFollower", async (req, res) => {
   try {
     const { UserId, publicId } = req.body;
+     console.log(req.body);
     const Follower = await User.findById(UserId); // get the follower
     const Following = await User.findById(publicId);  // get the following 
-
+         console.log(Follower, Following);
     if (Follower && Following) {
       const followIndex = Follower.Follow.indexOf(publicId);
       const followingIndex = Following.Following.indexOf(UserId);
