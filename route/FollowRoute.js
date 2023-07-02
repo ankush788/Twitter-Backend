@@ -98,4 +98,18 @@ router.post("/FollowAndFollowing", async (req, res) => {
         console.log(err);
     }
 });
+
+//---------------follow length--------------------//
+
+router.post("/FollowData", async (res, req) => {
+    const { UserId } = req.body;
+    try {
+        const user = User.findById(UserId);
+        res.json({ Follow: user.Follow.length, Following: user.Following.length });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+
 module.exports = router; 
