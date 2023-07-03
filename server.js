@@ -50,9 +50,10 @@ app.use(
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false,
-        store: store ,// Move the store option here
-        secure: true,
-    sameSite: 'none'
+      cookie: {
+      secure: true,
+      sameSite: "none",
+    },
         
     })
 );
