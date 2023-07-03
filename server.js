@@ -15,7 +15,7 @@ const router3 = require('./route/TweetRoute');
 const router4 = require("./route/FollowRoute")
 const { crossOriginResourcePolicy } = require('helmet');
 const MongoDBSession = require("connect-mongodb-session")(session);
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 
 try {
     mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.f9qdln2.mongodb.net/TwitterLoginDB?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -78,5 +78,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('Server started on port 8000');
+    console.log('Server started on port 4000');
 });
