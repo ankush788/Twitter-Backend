@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const authenticate = (req, res, next) => {
     const jwtToken = req.cookies.token; // Retrieve JWT token from the cookie
     const googleToken = req.cookies['connect.sid']; // Retrieve Google authentication token from the cookie
-
+   console.log(googleToken);
     if (jwtToken) {
         try {
             const decoded = jwt.verify(jwtToken, process.env.SECRET);
