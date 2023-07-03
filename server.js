@@ -37,9 +37,6 @@ app.use(
         {
             origin: 'https://twitter-front-mauve.vercel.app',  // Replace with the actual origin of your frontend server
             credentials: true, // Enable sending cookies across domains
-            
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Set-Cookie"]
         }
     )
 );
