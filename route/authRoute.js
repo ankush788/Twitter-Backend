@@ -30,24 +30,14 @@ router.get("/logout", (req, res) => {
 router.get('/google',
     passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get("/google/home", (req, res, next) => {
-  passport.authenticate("google", (err, user) => {
-    if (err) {
-      return res.redirect("https://twitter-backend-flame.vercel.app/auth/login/failed");
-    }
-    if (!user) {
-      return res.redirect("https://twitter-backend-flame.vercel.app/auth/login/failed");
-    }
-    req.login(user, (err) => {
-      if (err) {
-        return res.redirect("https://twitter-backend-flame.vercel.app/auth/login/failed");
-      }
-      req.session.cookie.sameSite = 'none';
+app.get('/auth/google/home', 
+  passport.authenticate('google', { failureRedirect: '/auth/login/failed' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+       req.session.cookie.sameSite = 'none';
       req.session.cookie.secure = true;
-      return res.redirect(CLIENT_URL);
-    });
-  })(req, res, next);
-});
+    res.redirect(CLIENT_URL);
+  });
 
 
 
