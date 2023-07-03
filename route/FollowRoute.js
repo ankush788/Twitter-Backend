@@ -10,6 +10,10 @@ const User = require('../models/user')
    router.post("/UserFollower", async (req, res) => {
   try {
     const { UserId, publicId } = req.body;
+     
+      if (!mongoose.Types.ObjectId.isValid(UserId) || !mongoose.Types.ObjectId.isValid(publicId)) {
+      return res.status(400).json({ success: false, message: "Invalid UserId or publicId" });
+    }
     
     const Follower = await User.findById(UserId); // get the follower
     const Following = await User.findById(publicId);  // get the following 
@@ -45,6 +49,10 @@ const User = require('../models/user')
 router.post("/IntialUserFollower", async (req, res) => {
     try {
         const { UserId, publicId } = req.body;
+
+       if (!mongoose.Types.ObjectId.isValid(UserId) || !mongoose.Types.ObjectId.isValid(publicId)) {
+      return res.status(400).json({ success: false, message: "Invalid UserId or publicId" });
+    }
         const Follower = await User.findById(UserId);
 
         const followIndex = Follower.Follow.indexOf(publicId);
@@ -69,6 +77,9 @@ router.post("/IntialUserFollower", async (req, res) => {
 //---------------------------------------------follower Following Data ---------------------------------------------//
 router.post("/FollowAndFollowing", async (req, res) => {
     const { UserId } = req.body;
+   if (!mongoose.Types.ObjectId.isValid(UserId)) {
+      return res.status(400).json({ success: false, message: "Invalid UserId" });
+    }
     let follower = [];
     let following = [];
     try {
