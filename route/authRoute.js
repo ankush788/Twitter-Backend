@@ -33,8 +33,12 @@ router.get('/google',
 router.get(
     "/google/home",
     passport.authenticate("google", {
-        successRedirect: CLIENT_URL,                   // note  always use sucessRedirected  and failureRedirect in auth not other thing make error 
         failureRedirect: "/login/failed",
+
+         req.session.cookie.sameSite = 'none';
+          req.session.cookie.secure = true;
+        successRedirect: CLIENT_URL,                   // note  always use sucessRedirected  and failureRedirect in auth not other thing make error 
+        
     })
 );
 
