@@ -49,6 +49,6 @@ app.get("/google/home", (req, res, next) => {
   })(req, res, next);
 });
 
-);
+
 
 module.exports = router;
