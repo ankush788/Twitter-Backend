@@ -46,31 +46,5 @@ router.get(
     res.redirect(CLIENT_URL);
   }
 )
-// router.get(
-//   "/google/home",
-//   passport.authenticate("google", {
-//     successRedirect: CLIENT_URL,
-//     failureRedirect: "/login/failed",
-//     session: true, // Enable session-based authentication
-
-//     // Add a custom callback function after successful authentication
-//     successCallback: function (req, res) {
-//       // Get the session ID
-//       const sessionId = req.sessionID;
-
-//       // Set the "connect.sid" cookie with secure and sameSite attributes
-//       res.cookie("connect.sid", sessionId, {
-//         secure: true,
-//         sameSite: "none",
-//       });
-
-//       // Redirect to the success page or send a JSON response
-//       res.redirect(CLIENT_URL); // Modify this as per your requirements
-//     },
-//   })
-// );
-
-
-
 
 module.exports = router;
