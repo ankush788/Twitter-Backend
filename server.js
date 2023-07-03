@@ -51,7 +51,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
       cookie: {
-    // httpOnly: true,
+    httpOnly: true,
       secure: true,
       sameSite: "none",
     },
