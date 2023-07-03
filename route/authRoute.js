@@ -32,8 +32,9 @@ router.get('/google',
 router.get(
   "/google/home",
   passport.authenticate("google", {
-    successRedirect: CLIENT_URL,
+    
     failureRedirect: "/login/failed",
+      
     session: true, // Enable session-based authentication
 
     // Add a custom callback function after successful authentication
