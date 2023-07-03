@@ -13,7 +13,7 @@ passport.use(
         },
         function (accessToken, refreshToken, profile, cb) {
           
-            const token = jwt.sign({ userId: profile.id, name: profile.displayName, email: profile.emails[0].value, photoLink: profile.photos[0].value}, process.env.SECRET, {
+            const token = jwt.sign({ userId: user._id, name: user.name, email: user.email, Follow: user.Follow, Following: user.Following, photoLink: user.photoLink, joinDate: user.joinDate }, process.env.SECRET, {
                 expiresIn: "2h",
             });
 
