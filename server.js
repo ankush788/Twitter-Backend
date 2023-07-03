@@ -51,7 +51,10 @@ app.use(
         resave: false,
         saveUninitialized: false,
         store: store ,// Move the store option here
-          
+           cookie: {
+            secure: true,
+            sameSite: 'none'
+        }
     })
 );
 
