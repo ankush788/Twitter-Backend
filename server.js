@@ -15,10 +15,10 @@ const router3 = require('./route/TweetRoute');
 const router4 = require("./route/FollowRoute")
 const { crossOriginResourcePolicy } = require('helmet');
 const MongoDBSession = require("connect-mongodb-session")(session);
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8000;
 
 try {
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.f9qdln2.mongodb.net/TwitterLoginDB?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.kbryens.mongodb.net/twitterAnkushDatabase`);
 
     console.log('Connected to MongoDB');
 } catch (err) {
@@ -26,7 +26,7 @@ try {
 }
 
 const store = new MongoDBSession({
-    uri: `mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.f9qdln2.mongodb.net/TwitterLoginDB?retryWrites=true&w=majority`,
+    uri: `mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.kbryens.mongodb.net/twitterAnkushDatabase`,
     collection: "sessions"
 });
 
@@ -35,7 +35,7 @@ const store = new MongoDBSession({
 app.use(
     cors(
         {
-            origin: 'https://twitter-front-mauve.vercel.app',  // Replace with the actual origin of your frontend server
+            origin: 'http://localhost:3000',  // Replace with the actual origin of your frontend server
             credentials: true, // Enable sending cookies across domains
         }
     )
@@ -50,12 +50,12 @@ app.use(
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false,
-      cookie: {
-    httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    },
-        
+        cookie: {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+        },
+
     })
 );
 
@@ -78,5 +78,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('Server started on port 4000');
+    console.log('Server started on port 8000');
 });
