@@ -27,22 +27,20 @@ router.get("/logout", (req, res) => {
 });
 
 
-// router.get('/google',
-//     passport.authenticate('google', { scope: ['profile', 'email'] }));
-// router.get(
-//     "/google/home",
-//     passport.authenticate("google", {
-//         successRedirect: CLIENT_URL,                   // note  always use sucessRedirected  and failureRedirect in auth not other thing make error 
-//         failureRedirect: "/login/failed",
-//     })
-// );
+router.get(
+  "/google/home",
+  passport.authenticate("google", { failureRedirect: "/login/failed" }), (req, res) => {
+    const token = req.user.token;
 
-app.get('/google/home', 
-  passport.authenticate('google', { failureRedirect: '/auth/login/failed' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
+    res.cookie('token', token, {
+      expires: new Date(Date.now() + 2 * 60 * 60 * 1000), // Expiration time in 2 hours
+      httpOnly: true,
+      secure: true, // Set this to true if using HTTPS
+      sameSite: "None",
+    });
+
     res.redirect(CLIENT_URL);
-  });
-
+  }
+);
 
 module.exports = router;
