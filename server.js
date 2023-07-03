@@ -51,6 +51,8 @@ app.use(
         resave: false,
         saveUninitialized: false,
         store: store // Move the store option here
+        secure: true,
+    sameSite: 'none'
         
     })
 );
