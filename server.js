@@ -50,7 +50,11 @@ app.use(
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false,
-        store: store // Move the store option here
+        store: store ,// Move the store option here
+          cookie: {
+            secure: true, // Enable if using HTTPS
+            sameSite: 'none' // Allow cross-site requests
+        }
     })
 );
 
