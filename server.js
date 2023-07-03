@@ -50,7 +50,7 @@ app.use(
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false,
-        store: store // Move the store option here
+        store: store ,// Move the store option here
         secure: true,
     sameSite: 'none'
         
