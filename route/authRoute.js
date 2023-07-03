@@ -30,16 +30,25 @@ router.get("/logout", (req, res) => {
 router.get('/google',
     passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get(
-    "/google/home",
-    passport.authenticate("google", {
-        failureRedirect: "/login/failed",
+app.get("/google/home", (req, res, next) => {
+  passport.authenticate("google", (err, user) => {
+    if (err) {
+      return res.redirect("https://twitter-backend-flame.vercel.app/auth/login/failed");
+    }
+    if (!user) {
+      return res.redirect("https://twitter-backend-flame.vercel.app/auth/login/failed");
+    }
+    req.login(user, (err) => {
+      if (err) {
+        return res.redirect("https://twitter-backend-flame.vercel.app/auth/login/failed");
+      }
+      req.session.cookie.sameSite = 'none';
+      req.session.cookie.secure = true;
+      return res.redirect(CLIENT_URL);
+    });
+  })(req, res, next);
+});
 
-         req.session.cookie.sameSite = 'none';
-          req.session.cookie.secure = true;
-        successRedirect: CLIENT_URL,                   // note  always use sucessRedirected  and failureRedirect in auth not other thing make error 
-        
-    })
 );
 
 module.exports = router;
