@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 
-const CLIENT_URL = "http://localhost:3000/";
+const CLIENT_URL = "https://twitter-front-mauve.vercel.app";
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
@@ -42,7 +42,7 @@ router.get(
       secure: true, // Set this to true if using HTTPS
       sameSite: "None",
     });
-    
+
     res.redirect(CLIENT_URL);
   }
 )

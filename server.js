@@ -18,7 +18,7 @@ const MongoDBSession = require("connect-mongodb-session")(session);
 const port = process.env.PORT || 8000;
 
 try {
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.kbryens.mongodb.net/twitterAnkushDatabase`);
+    mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.f9qdln2.mongodb.net/TwitterLoginDB?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
 
     console.log('Connected to MongoDB');
 } catch (err) {
@@ -26,7 +26,7 @@ try {
 }
 
 const store = new MongoDBSession({
-    uri: `mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.kbryens.mongodb.net/twitterAnkushDatabase`,
+    uri: `mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.f9qdln2.mongodb.net/TwitterLoginDB?retryWrites=true&w=majority`,
     collection: "sessions"
 });
 
@@ -35,7 +35,7 @@ const store = new MongoDBSession({
 app.use(
     cors(
         {
-            origin: 'http://localhost:3000',  // Replace with the actual origin of your frontend server
+            origin: 'https://twitter-front-mauve.vercel.app',  // Replace with the actual origin of your frontend server
             credentials: true, // Enable sending cookies across domains
         }
     )

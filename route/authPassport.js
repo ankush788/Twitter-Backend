@@ -9,7 +9,7 @@ passport.use(
         {
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "http://localhost:8000/auth/google/home"
+            callbackURL: "https://twitter-backend-flame.vercel.app/auth/google/home"
         },
         function (accessToken, refreshToken, profile, cb) {
           
