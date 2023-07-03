@@ -13,17 +13,29 @@ passport.use(
         },
         function (accessToken, refreshToken, profile, cb) {
 
-            console.log(profile);
-            const token = jwt.sign({ userId: profile.id, name: profile.displayName, email: profile.emails[0].value, photoLink: profile.photos[0].value}, process.env.SECRET, {
-                expiresIn: "2h",
-            });
+            // console.log(profile);
+            const tokenData = {
+                userId: null,
+                id: profile.id, // Initialize _id as null
+                name: profile.displayName,
+                email: profile.emails[0].value,
+                photoLink: profile.photos[0].value
+            };
 
             User.findOrCreate({ googleId: profile.id, name: profile.displayName, email: profile.emails[0].value, photoLink: profile.photos[0].value }, function (err, user) {
-                return cb(err, {user, token});
+                // Assign the _id value to tokenData
+                tokenData.userId = user._id;
+
+                const token = jwt.sign(tokenData, process.env.SECRET, {
+                    expiresIn: "2h",
+                });
+
+                return cb(err, { user, token });
             });
         }
     )
 );
+
 
 passport.serializeUser((user, done) => {
     done(null, user);
