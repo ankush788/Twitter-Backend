@@ -37,7 +37,7 @@ router.get("/logout", (req, res) => {
 //     })
 // );
 
-app.get('/auth/google/callback', 
+app.get('/google/home', 
   passport.authenticate('google', { failureRedirect: '/auth/login/failed' }),
   function(req, res) {
     // Successful authentication, redirect home.
