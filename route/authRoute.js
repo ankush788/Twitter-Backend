@@ -29,15 +29,13 @@ router.get("/logout", (req, res) => {
 
 router.get('/google',
     passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/google/home', 
-  passport.authenticate('google', { failureRedirect: '/auth/login/failed' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-       req.session.cookie.sameSite = 'none';
-      req.session.cookie.secure = true;
-    res.redirect(CLIENT_URL);
-  });
+router.get(
+    "/google/home",
+    passport.authenticate("google", {
+        successRedirect: CLIENT_URL,                   // note  always use sucessRedirected  and failureRedirect in auth not other thing make error 
+        failureRedirect: "/login/failed",
+    })
+);
 
 
 
