@@ -27,35 +27,22 @@ router.get("/logout", (req, res) => {
 });
 
 
-router.get('/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get(
-  "/google/home",
-  passport.authenticate("google", {
-    
-    failureRedirect: "/login/failed",
-      
-    session: true, // Enable session-based authentication
+// router.get('/google',
+//     passport.authenticate('google', { scope: ['profile', 'email'] }));
+// router.get(
+//     "/google/home",
+//     passport.authenticate("google", {
+//         successRedirect: CLIENT_URL,                   // note  always use sucessRedirected  and failureRedirect in auth not other thing make error 
+//         failureRedirect: "/login/failed",
+//     })
+// );
 
-    // Add a custom callback function after successful authentication
-    successCallback: function (req, res) {
-      // Get the session ID
-      const sessionId = req.sessionID;
-
-      // Set the "connect.sid" cookie with secure and sameSite attributes
-      res.cookie("connect.sid", sessionId, {
-          httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      });
-
-      // Redirect to the success page or send a JSON response
-      res.redirect(CLIENT_URL); // Modify this as per your requirements
-    },
-  })
-);
-
-
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/auth/login/failed' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect(CLIENT_URL);
+  });
 
 
 module.exports = router;
