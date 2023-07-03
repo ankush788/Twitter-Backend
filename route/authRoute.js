@@ -43,8 +43,9 @@ router.get(
 
       // Set the "connect.sid" cookie with secure and sameSite attributes
       res.cookie("connect.sid", sessionId, {
-        secure: true,
-        sameSite: "none",
+          httpOnly: true,
+      secure: false,
+      sameSite: "none",
       });
 
       // Redirect to the success page or send a JSON response
