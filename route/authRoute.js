@@ -27,7 +27,6 @@ router.get("/logout", (req, res) => {
   res.redirect(CLIENT_URL);
 });
 
-
 router.get('/google', (req, res, next) => {
   passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next)
 });
