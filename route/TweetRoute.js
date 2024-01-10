@@ -188,7 +188,7 @@ router.post("/DeleteTweet", async (req, res) => {
             res.json({ message: "tweet deleted" });
         }
         else {
-            res.json({ message: "you are authorise to do this " });
+            res.json({ message: "you are not authorise to do this " });
         }
     }
     catch (err) {
